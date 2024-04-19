@@ -1,30 +1,33 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+import FullCalendar from "@fullcalendar/vue3";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+
+export default {
+  components: {
+    FullCalendar, // make the <FullCalendar> tag available
+  },
+  data() {
+    return {
+      calendarOptions: {
+        plugins: [dayGridPlugin, interactionPlugin],
+        initialView: "dayGridMonth",
+        locale: "fr",
+        dateClick: this.handleDateClick,
+        events: [
+          { title: "event 1", date: "2019-04-01" },
+          { title: "event 2", date: "2019-04-02" },
+        ],
+      },
+    };
+  },
+  methods: {
+    handleDateClick: function () {
+      alert("date click! ");
+    },
+  },
+};
 </script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <FullCalendar :options="calendarOptions" />
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
